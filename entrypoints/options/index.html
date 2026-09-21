@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="manifest.open_in_tab" content="true" />
+    <title>Anti-dead Internet settings</title>
+    <script type="module" src="./main.ts"></script>
+  </head>
+  <body>
+    <main class="settings-shell">
+      <header class="page-header">
+        <img src="../../anti-dead.svg" alt="" width="48" height="48" />
+        <h1>Anti-dead Internet</h1>
+      </header>
+
+      <div class="settings-content">
+        <section class="card connection-card">
+          <div class="card-heading">
+            <h2>TypeSafe connection</h2>
+            <p>
+              The API key is stored locally in Chrome and is available only to trusted extension
+              pages and the background service worker. It is never sent to X or Twitter.
+            </p>
+          </div>
+
+          <form id="key-form" class="connection-form">
+            <div class="field">
+              <div class="field-heading">
+                <label for="api-key">API key</label>
+                <span id="connection-status" class="connection-status">
+                  <span id="state-dot" class="state-dot" aria-hidden="true"></span>
+                  <span id="key-state">Checking connection...</span>
+                </span>
+              </div>
+              <input
+                id="api-key"
+                name="apiKey"
+                type="password"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Enter your TypeSafe API key"
+                required
+              />
+            </div>
+            <div class="actions">
+              <button id="save-key" class="primary" type="submit">Validate and save</button>
+              <button id="delete-key" class="danger" type="button" hidden>Remove Key</button>
+            </div>
+          </form>
+
+          <p id="message" class="message" role="status"></p>
+        </section>
+
+        <section class="card custom-card">
+          <div class="card-heading">
+            <h2>Custom input</h2>
+            <p>Define the question and criteria used to classify posts.</p>
+          </div>
+
+          <form id="custom-form" class="custom-form">
+            <label class="field" for="custom-question">
+              <span>Custom question</span>
+              <textarea
+                id="custom-question"
+                maxlength="2000"
+                placeholder="e.g. Does this post appear to be AI-generated?"
+              ></textarea>
+            </label>
+            <label class="field" for="custom-yes-criteria">
+              <span>Custom yes criteria</span>
+              <input
+                id="custom-yes-criteria"
+                type="text"
+                maxlength="2000"
+                placeholder="Describe what should count as yes"
+              />
+            </label>
+            <label class="field" for="custom-no-criteria">
+              <span>Custom no criteria</span>
+              <input
+                id="custom-no-criteria"
+                type="text"
+                maxlength="2000"
+                placeholder="Describe what should count as no"
+              />
+            </label>
+          </form>
+          <p id="custom-message" class="message" role="status"></p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

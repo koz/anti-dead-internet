@@ -1,0 +1,47 @@
+.jev-filter-hidden {
+  display: none !important;
+}
+
+.jev-filter-badge {
+  align-items: center;
+  align-self: flex-start;
+  background: #fcebe8;
+  border: 1px solid #f2c9c2;
+  border-radius: 999px;
+  box-sizing: border-box;
+  color: #8a352b;
+  display: inline-flex;
+  font-size: 12px;
+  gap: 4px;
+  height: 28px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0 0 7px;
+  overflow: hidden;
+  padding: 0 8px;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.jev-filter-badge-score {
+  background: #eaf4f1;
+  border-color: #c6ddd6;
+  color: #285e52;
+}
+
+.jev-filter-badge-label {
+  font-size: 12px;
+  line-height: normal;
+}
+
+.jev-filter-badge-divider {
+  flex: 0 0 auto;
+  line-height: normal;
+}
+
+.jev-filter-badge-value {
+  font-size: 12px;
+  line-height: normal;
+}
