@@ -4,17 +4,17 @@ A Chrome Manifest V3 extension that classifies the text of posts on X/Twitter wi
 
 A TypeSafe API key is required to use this extension, it can be entered when the extension is first installed or from the Options page, the criteria for classifying posts can also be changed there.
 
-![Anti-dead internet extension demo](demo.png)
+![Anti-dead internet extension demo](assets/screenshots/demo.png)
 
 ## Screenshots
 
 ### Extension popup
 
-![Anti-dead internet extension popup](popup.png)
+![Anti-dead internet extension popup](assets/screenshots/popup.png)
 
 ### Options page
 
-![Anti-dead internet options page](options.png)
+![Anti-dead internet options page](assets/screenshots/options.png)
 
 ## Requirements
 

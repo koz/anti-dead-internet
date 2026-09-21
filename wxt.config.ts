@@ -3,7 +3,7 @@ import { defineConfig } from "wxt";
 export default defineConfig({
   modules: ["@wxt-dev/auto-icons"],
   autoIcons: {
-    baseIconPath: "anti-dead.png",
+    baseIconPath: "assets/anti-dead.png",
     developmentIndicator: "grayscale",
   },
   manifest: {
