@@ -6,6 +6,16 @@ A TypeSafe API key is required to use this extension, it can be entered when the
 
 ![Anti-dead internet extension demo](demo.png)
 
+## Screenshots
+
+### Extension popup
+
+![Anti-dead internet extension popup](popup.png)
+
+### Options page
+
+![Anti-dead internet options page](options.png)
+
 ## Requirements
 
 - Node.js 22.12 or later in the 22.x line, 24.x, or 26+ (the versions supported by the current locked test runner)
