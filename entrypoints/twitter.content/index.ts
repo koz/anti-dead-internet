@@ -20,7 +20,6 @@ import "./style.css";
 const MAX_CONCURRENT_REQUESTS = 3;
 const MAX_CACHE_ENTRIES = 500;
 const MAX_FAILURE_CACHE_ENTRIES = 500;
-const FAILURE_COOLDOWN_MS = 30_000;
 const BADGE_CLASS = "jev-filter-badge";
 const HIDDEN_CLASS = "jev-filter-hidden";
 
@@ -59,7 +58,7 @@ export default defineContentScript({
 
     const records = new Map<HTMLElement, ArticleRecord>();
     const scoreCache = new Map<string, number>();
-    const failureCache = new Map<string, number>();
+    const failureCache = new Set<string>();
     const pendingFingerprints = new Map<string, number>();
 
     const applyRecord = (article: HTMLElement, record: ArticleRecord): void => {
@@ -131,15 +130,10 @@ export default defineContentScript({
             if (result.ignored) return;
 
             if (result.score === null) {
-              setFailure(
-                failureCache,
-                job.fingerprint,
-                Date.now() + FAILURE_COOLDOWN_MS,
-              );
+              rememberFailure(failureCache, job.fingerprint);
               for (const record of records.values()) {
                 if (record.fingerprint === job.fingerprint) record.pending = false;
               }
-              ctx.setTimeout(scheduleScan, FAILURE_COOLDOWN_MS + 50);
               return;
             }
 
@@ -203,9 +197,7 @@ export default defineContentScript({
         return;
       }
 
-      const retryAfter = failureCache.get(tweet.fingerprint) ?? 0;
-      if (retryAfter > Date.now()) return;
-      if (retryAfter > 0) failureCache.delete(tweet.fingerprint);
+      if (failureCache.has(tweet.fingerprint)) return;
 
       record.pending = true;
       if (pendingFingerprints.get(tweet.fingerprint) === generation) return;
@@ -433,15 +425,12 @@ function setCachedScore(
   }
 }
 
-function setFailure(
-  cache: Map<string, number>,
-  fingerprint: string,
-  retryAfter: number,
-): void {
+function rememberFailure(cache: Set<string>, fingerprint: string): void {
   cache.delete(fingerprint);
-  cache.set(fingerprint, retryAfter);
+  cache.add(fingerprint);
+
   if (cache.size > MAX_FAILURE_CACHE_ENTRIES) {
-    const oldest = cache.keys().next().value;
+    const oldest = cache.values().next().value;
     if (oldest !== undefined) cache.delete(oldest);
   }
 }

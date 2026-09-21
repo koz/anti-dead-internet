@@ -56,7 +56,11 @@ export async function classifyTweet(
   settings?: Partial<CustomClassificationSettings>,
   signal?: AbortSignal,
 ) {
-  const response = await client.systemOne(buildClassificationRequest(content, settings), { signal });
+  const response = await client.systemOne(buildClassificationRequest(content, settings), {
+    signal,
+    timeout: 5_000,
+    retry: { maxRetries: 10 },
+  });
   const score = response.answers.aiGenerated.noul;
 
   if (!Number.isFinite(score) || score < 0 || score > 1) {
